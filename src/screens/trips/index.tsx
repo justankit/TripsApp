@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {FlatList, ListRenderItem} from 'react-native';
 import Container from '../../components/Container';
+import Loader from '../../components/Loader';
 import TripItem from '../../components/TripItem';
-import TripList from './../../data/trip-list.json';
+import {getTripList, isLoading, tripList} from '../../store/tripListSlicer';
+import {useAppDispatch, useAppSelector} from '../hooks';
 
 interface TripItemProps {
   id: string;
@@ -13,6 +15,14 @@ interface TripItemProps {
 }
 
 const Trips = ({navigation}) => {
+  const tripListData = useAppSelector(tripList);
+  const tripLoading = useAppSelector(isLoading);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getTripList());
+  }, []);
+
   const onPressTripItem = (item: TripItemProps) => {
     navigation.navigate('TripDetails', {tripDetails: item});
   };
@@ -34,13 +44,17 @@ const Trips = ({navigation}) => {
 
   return (
     <Container>
-      <FlatList
-        data={TripList}
-        renderItem={renderItem}
-        keyExtractor={keyExtractor}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{paddingVertical: 20}}
-      />
+      {tripLoading ? (
+        <Loader modalVisible={tripLoading} />
+      ) : (
+        <FlatList
+          data={tripListData}
+          renderItem={renderItem}
+          keyExtractor={keyExtractor}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{paddingVertical: 20}}
+        />
+      )}
     </Container>
   );
 };
