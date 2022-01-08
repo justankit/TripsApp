@@ -12,15 +12,23 @@ interface TripItemProps {
   status: string;
 }
 
-const Trips = () => {
-  const renderItem: ListRenderItem<TripItemProps> = ({item}) => (
-    <TripItem
-      name={item.name}
-      startDate={item.startDate}
-      endDate={item.endDate}
-      status={item.status}
-    />
-  );
+const Trips = ({navigation}) => {
+  const onPressTripItem = (item: TripItemProps) => {
+    navigation.navigate('TripDetails', {tripDetails: item});
+  };
+
+  const renderItem: ListRenderItem<TripItemProps> = ({item}) => {
+    return (
+      <TripItem
+        item={item}
+        name={item.name}
+        startDate={item.startDate}
+        endDate={item.endDate}
+        status={item.status}
+        onPress={onPressTripItem}
+      />
+    );
+  };
 
   const keyExtractor = (item: TripItemProps) => item.id.toString();
 

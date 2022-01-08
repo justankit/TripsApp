@@ -1,24 +1,36 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import colors from '../util/colors';
 
-interface Props {
+interface itemProps {
+  id: string;
   name: string;
   startDate: string;
   endDate: string;
   status: string;
 }
 
-const TripItem = ({name, startDate, endDate, status}: Props) => {
+interface Props {
+  item: itemProps;
+  name: string;
+  startDate: string;
+  endDate: string;
+  status: string;
+  onPress: (item: itemProps) => void;
+}
+
+const TripItem = ({item, name, startDate, endDate, status, onPress}: Props) => {
   return (
-    <View style={styles.tripItem}>
-      <Text style={styles.name}>{name}</Text>
-      <View style={styles.dateRow}>
-        <Text style={styles.date}>{startDate}</Text>
-        <Text style={styles.date}>{endDate}</Text>
+    <TouchableOpacity onPress={() => onPress(item)}>
+      <View style={styles.tripItem}>
+        <Text style={styles.name}>{name}</Text>
+        <View style={styles.dateRow}>
+          <Text style={styles.date}>{startDate}</Text>
+          <Text style={styles.date}>{endDate}</Text>
+        </View>
+        <Text style={styles.status}>{status}</Text>
       </View>
-      <Text style={styles.status}>{status}</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 
