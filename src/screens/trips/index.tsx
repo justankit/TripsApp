@@ -1,0 +1,40 @@
+import React from 'react';
+import {FlatList, ListRenderItem} from 'react-native';
+import Container from '../../components/Container';
+import TripItem from '../../components/TripItem';
+import TripList from './../../data/trip-list.json';
+
+interface TripItemProps {
+  id: string;
+  name: string;
+  startDate: string;
+  endDate: string;
+  status: string;
+}
+
+const Trips = () => {
+  const renderItem: ListRenderItem<TripItemProps> = ({item}) => (
+    <TripItem
+      name={item.name}
+      startDate={item.startDate}
+      endDate={item.endDate}
+      status={item.status}
+    />
+  );
+
+  const keyExtractor = (item: TripItemProps) => item.id.toString();
+
+  return (
+    <Container>
+      <FlatList
+        data={TripList}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{paddingVertical: 20}}
+      />
+    </Container>
+  );
+};
+
+export default Trips;
