@@ -2,6 +2,7 @@ import {useRoute} from '@react-navigation/native';
 import React from 'react';
 import {Text, StyleSheet} from 'react-native';
 import Container from '../../components/Container';
+import FreelyText from '../../components/FreelyText';
 import colors from '../../util/colors';
 
 const TripDetails = () => {
@@ -9,10 +10,10 @@ const TripDetails = () => {
   const {tripDetails} = params;
   return (
     <Container>
-      <Text style={styles.name}>{tripDetails.name}</Text>
-      <Text style={styles.destination}>
+      <FreelyText style={styles.name}>{tripDetails.name}</FreelyText>
+      <FreelyText style={styles.destination}>
         {tripDetails?.destinations?.join('\n')}
-      </Text>
+      </FreelyText>
     </Container>
   );
 };

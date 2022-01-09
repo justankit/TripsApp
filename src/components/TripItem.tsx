@@ -1,6 +1,7 @@
 import React, {useRef, useEffect, useState} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, AppState} from 'react-native';
 import colors from '../util/colors';
+import FreelyText from './FreelyText';
 
 interface itemProps {
   id: string;
@@ -44,12 +45,16 @@ const TripItem = ({item, name, startDate, endDate, status, onPress}: Props) => {
   return (
     <TouchableOpacity onPress={() => onPress(item)}>
       <View style={[styles.tripItem, {backgroundColor: bgColor}]}>
-        <Text style={styles.name}>{name}</Text>
+        <FreelyText type="bold" style={styles.name}>
+          {name}
+        </FreelyText>
         <View style={styles.dateRow}>
-          <Text style={styles.date}>{startDate}</Text>
-          <Text style={styles.date}>{endDate}</Text>
+          <FreelyText style={styles.date}>{startDate}</FreelyText>
+          <FreelyText style={styles.date}>{endDate}</FreelyText>
         </View>
-        <Text style={styles.status}>{status.replace(/_/g, ' ')}</Text>
+        <FreelyText style={styles.status}>
+          {status.replace(/_/g, ' ')}
+        </FreelyText>
       </View>
     </TouchableOpacity>
   );

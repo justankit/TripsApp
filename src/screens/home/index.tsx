@@ -1,11 +1,12 @@
 import React from 'react';
-import {Text, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import Container from '../../components/Container';
+import FreelyText from '../../components/FreelyText';
 
 const Home = () => {
   return (
     <Container style={styles.container}>
-      <Text style={styles.home}>Home</Text>
+      <FreelyText style={styles.home}>Home</FreelyText>
     </Container>
   );
 };
